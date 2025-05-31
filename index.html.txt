@@ -1,32 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Taylor's Tech Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    section {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Welcome to Taylor's Tech Portfolio</h1>
-  <p>Hi, I'm Taylor. I'm an IT Architect Specialist with experience in cybersecurity, cloud, automation, and AI.</p>
+  <header>
+    <h1>Taylor's Tech Portfolio</h1>
+    <p>Cybersecurity • AI • Automation • Cloud</p>
+  </header>
 
-  <h2>About This Site</h2>
-  <ul>
-    <li>Cybersecurity projects</li>
-    <li>AI chatbot demos</li>
-    <li>Azure modeling experiments</li>
-    <li>Linux and SOC tools</li>
-  </ul>
+  <section>
+    <h2>👨🏽‍💻 About Me</h2>
+    <p>Hi! I'm Taylor, an IT Architect Specialist with a passion for cybersecurity and emerging technologies. I create solutions that are secure, scalable, and smart.</p>
+  </section>
 
-  <h2>AI Chatbot</h2>
-  <p>I created a basic AI chatbot that can answer common IT questions, like password resets and phishing reports.</p>
+  <section>
+    <h2>🤖 Chatbot Demo</h2>
+    <p>This portfolio includes a working demo of a custom chatbot powered by GenAI. It's designed to simulate helpdesk functions and answer common questions. <br>
+    <strong>Try it out below or visit the live AI agent (link coming soon).</strong></p>
+  </section>
 
-  <h2>Contact Me</h2>
-  <p>Email: your.email@example.com</p>
   <p>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
-  <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+  <section>
+    <h2>🧠 Projects & Skills</h2>
+    <ul>
+      <li>✔️ Custom AI ChatBots for Resume Q&A</li>
+      <li>✔️ Microsoft Defender for Endpoint SOC Rules</li>
+      <li>✔️ Cloud Lab Setup using Azure + Linux</li>
+    </ul>
+  </section>
 
-  <hr>
-  <p>&copy; 2025 Taylor</p>
+  <footer>
+    <p>Made by Taylor • © 2025</p>
+  </footer>
 
 </body>
 </html>
