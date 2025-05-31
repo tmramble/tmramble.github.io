@@ -51,7 +51,6 @@
     <strong>Try it out below or visit the live AI agent (link coming soon).</strong></p>
   </section>
 
-  <p>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
   <section>
     <h2>🧠 Projects & Skills</h2>
     <ul>
