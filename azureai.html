@@ -37,6 +37,49 @@
 <body>
     <div class="container">
         <h1>Image Analysis with Azure AI</h1>
+
+<script>
+  const subscriptionKey = '4vKcz3HOv7bwfT2gRuRyqoLbh01yFN5wghL6FwC7L3RRYzG8TOwvJQQJ99BFACYeBjFXJ3w3AAAAACOGPjyF';  // Replace with your actual key
+  const endpoint = 'https://ai-trambl2-4325.services.ai.azure.com/models';    // Replace with your actual endpoint
+
+  function analyzeImage() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    if (!file) {
+      alert('Please select an image to analyze.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const imageData = reader.result.split(',')[1]; // Get image as base64
+
+      // Call the Azure Computer Vision API
+      $.ajax({
+        url: `${endpoint}/vision/v3.2/describe`,  // Using describe endpoint for captions
+        type: 'POST',
+        headers: {
+          'Ocp-Apim-Subscription-Key': subscriptionKey,
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify({
+          data: imageData,
+        }),
+        success: function (response) {
+          const description = response.description.captions[0].text;
+          document.getElementById('result').innerHTML = `<p><strong>Caption:</strong> ${description}</p>`;
+        },
+        error: function (error) {
+          document.getElementById('result').innerHTML = `<p>Error analyzing image.</p>`;
+        },
+      });
+    };
+    reader.readAsDataURL(file); // Read image as base64
+  }
+</script>
+
+        
         <input type="file" id="imageInput" accept="image/*">
         <div class="result" id="result">
             <!-- Resulting image and detections will be displayed here -->
