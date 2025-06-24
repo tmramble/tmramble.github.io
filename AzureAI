@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Analysis with Azure AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px 0;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Analysis with Azure AI</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <div class="result" id="result">
+            <!-- Resulting image and detections will be displayed here -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@azure/cognitiveservices-vision-computervision@latest"></script>
+    <script>
+        const subscriptionKey = "YOUR_AZURE_SUBSCRIPTION_KEY";  // Replace with your key
+        const endpoint = "YOUR_AZURE_ENDPOINT";  // Replace with your endpoint URL
+
+        $("#imageInput").on("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Display the uploaded image
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $("#result").html(`<img src="${e.target.result}" alt="Uploaded Image">`);
+                };
+                reader.readAsDataURL(file);
+                
+                // Process the image with Azure API
+                analyzeImage(file);
+            }
+        });
+
+        function analyzeImage(imageFile) {
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const imageData = e.target.result.split(',')[1];  // Base64 image data
+                const uriBase = `${endpoint}/vision/v3.2/analyze?visualFeatures=Objects`;
+
+                try {
+                    const response = await fetch(uriBase, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/octet-stream",
+                            "Ocp-Apim-Subscription-Key": subscriptionKey
+                        },
+                        body: imageData
+                    });
+                    const data = await response.json();
+                    displayResults(data);
+                } catch (error) {
+                    console.error("Error analyzing image:", error);
+                    alert("Error analyzing the image.");
+                }
+            };
+            reader.readAsDataURL(imageFile);
+        }
+
+        function displayResults(data) {
+            const objects = data.objects || [];
+            let resultHTML = `<h2>Detected Objects:</h2><ul>`;
+            objects.forEach(obj => {
+                resultHTML += `<li>${obj.object} (Confidence: ${Math.round(obj.confidence * 100)}%)</li>`;
+            });
+            resultHTML += `</ul>`;
+            $("#result").append(resultHTML);
+        }
+    </script>
+</body>
+</html>
